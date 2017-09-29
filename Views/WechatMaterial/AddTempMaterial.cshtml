@@ -1,0 +1,40 @@
+﻿ <!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        临时素材管理
+    </h1>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">新增临时素材</h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form role="form" method="post" action="/WechatMaterial/UploadTempMaterial" enctype="multipart/form-data">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="exampleInputPassword1">临时素材类型</label>
+                    <select class="form-control" name="MaterialType" id="MaterialType">
+                        <option value="image"> 图片（image）: 2M，支持bmp/png/jpeg/jpg/gif格式</option>
+                        <option value="video">视频（video）：10MB，支持MP4格式</option>
+                        <option value="thumb">缩略图（thumb）：64KB，支持JPG格式</option>
+                        <option value="voice">语音（voice）：2M，播放长度不超过60s，mp3/wma/wav/amr格式</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputFile">选择文件</label>
+                    <input type="file" name="MaterialFile" id="MaterialFile">
+                    <p class="help-block">请选择一个本地文件进行上传.</p>
+                </div>
+
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary">立即上传</button>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- /.content -->

@@ -2,8 +2,6 @@ D:\MyPro\2017\hanbashuoshuo\hanbashuoshuo\bin\hanbashuoshuo.dll.config
 D:\MyPro\2017\hanbashuoshuo\hanbashuoshuo\bin\hanbashuoshuo.dll
 D:\MyPro\2017\hanbashuoshuo\hanbashuoshuo\bin\hanbashuoshuo.pdb
 D:\MyPro\2017\hanbashuoshuo\hanbashuoshuo\bin\Antlr3.Runtime.dll
-D:\MyPro\2017\hanbashuoshuo\hanbashuoshuo\bin\EntityFramework.dll
-D:\MyPro\2017\hanbashuoshuo\hanbashuoshuo\bin\EntityFramework.SqlServer.dll
 D:\MyPro\2017\hanbashuoshuo\hanbashuoshuo\bin\Microsoft.AspNet.Identity.Core.dll
 D:\MyPro\2017\hanbashuoshuo\hanbashuoshuo\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\MyPro\2017\hanbashuoshuo\hanbashuoshuo\bin\Microsoft.AspNet.Identity.Owin.dll

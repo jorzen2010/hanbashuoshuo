@@ -42,7 +42,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.DirectoryServices.Protocols" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -161,6 +163,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\WechatController.cs" />
+    <Compile Include="Controllers\WechatMaterialController.cs" />
+    <Compile Include="Controllers\WechatMenuController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -169,7 +173,23 @@
     <Compile Include="Models\WechatModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Wechat\lib\config.cs" />
+    <Compile Include="Wechat\business\AccessTokenService.cs" />
+    <Compile Include="Wechat\business\ConfigService.cs" />
+    <Compile Include="Wechat\business\WechatMaterialService.cs" />
+    <Compile Include="Wechat\business\WechatMenuService.cs" />
+    <Compile Include="Wechat\business\WechatMessageService.cs" />
+    <Compile Include="Wechat\business\WechatService.cs" />
+    <Compile Include="Wechat\lib\WechatAccessToken.cs" />
+    <Compile Include="Wechat\lib\WechatConfig.cs" />
+    <Compile Include="Wechat\lib\WechatError.cs" />
+    <Compile Include="Wechat\lib\WechatMaterial.cs" />
+    <Compile Include="Wechat\Tools\WechatCurlFileTools.cs" />
+    <Compile Include="Wechat\Tools\WechatEncrypt.cs" />
+    <Compile Include="Wechat\Tools\WechatHttpWebResponseUtility.cs" />
+    <Compile Include="Wechat\Tools\WechatLogHelper.cs" />
+    <Compile Include="wxapi.ashx.cs">
+      <DependentUpon>wxapi.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="bootstrap\css\bootstrap-theme.css" />
@@ -1129,6 +1149,7 @@
     <Content Include="Resource\ionicons-2.0.1\fonts\ionicons.eot" />
     <Content Include="Resource\ionicons-2.0.1\fonts\ionicons.ttf" />
     <Content Include="Resource\ionicons-2.0.1\fonts\ionicons.woff" />
+    <None Include="Properties\PublishProfiles\hanbashuoshuo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1170,11 +1191,19 @@
     <Content Include="Views\Shared\_TopPartial.cshtml" />
     <Content Include="Views\Shared\_MenuPartial.cshtml" />
     <Content Include="Views\Wechat\Setting.cshtml" />
+    <Content Include="Views\Wechat\Index.cshtml" />
+    <Content Include="wxapi.ashx" />
+    <Content Include="Views\Wechat\Test.cshtml" />
+    <Content Include="Views\WechatMenu\CreateMenu.cshtml" />
+    <Content Include="Views\WechatMenu\CreateWechatMenu.cshtml" />
+    <Content Include="Views\WechatMenu\DeleteWechatMenu.cshtml" />
+    <Content Include="Views\WechatMenu\GetWechatMenu.cshtml" />
+    <Content Include="Views\WechatMaterial\AddTempMaterial.cshtml" />
+    <Content Include="Views\WechatMaterial\UploadTempMaterial.cshtml" />
+    <Content Include="Views\WechatMaterial\GetForeverMaterialList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="WechatPay\" />
-    <Folder Include="Wechat\business\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
