@@ -31,7 +31,7 @@ namespace hanbashuoshuo.Controllers
             return View();
         }
 
-        public ActionResult GetForeverMaterialList(string type="image",int offset=0,int count=20)
+        public ActionResult GetForeverMaterialList(int? page,string type="image",int offset=0,int count=20)
         {
             string token = AccessTokenService.GetAccessToken();
             ForeverMaterialCount materialCount = WechatMaterialService.GetForeverMaterialCount(token);
@@ -48,22 +48,66 @@ namespace hanbashuoshuo.Controllers
             string postdata = JsonConvert.SerializeObject(materialListPost);
             string result=WechatMaterialService.GetMaterialList(token, postdata);
 
+            page = page ?? 1;
+
             if (type == "news")
             {
-                ViewBag.type = type;
-                ViewBag.count = count;
-                ViewBag.nextoffset = offset * count + 1;
                 ForeverNewsMaterial foreverNewsMaterial = JsonConvert.DeserializeObject<ForeverNewsMaterial>(result);
                 ViewData["NewsMaterialItems"] = foreverNewsMaterial.item;
+                ViewBag.total_count = foreverNewsMaterial.total_count;
+                ViewBag.item_count = foreverNewsMaterial.item_count;
+                int totalPage = ((foreverNewsMaterial.total_count + count - 1) / count);
+                bool prepage = false;
+                bool nextpage = false;
+                if (page >1)
+                {
+                    prepage = true;
+                }
+                if (totalPage > page)
+                {
+                    nextpage = true;
+ 
+                }
+
+                ViewBag.nextoffset = page * count;
+                ViewBag.preoffset = (page - 2) * count;
+                ViewBag.count = count;
+                ViewBag.type = type;
+                ViewBag.page = page;
+                ViewBag.totalPage = totalPage;
+                ViewBag.prepage = prepage;
+                ViewBag.nextpage = nextpage;
+               
             }
             else
             {
                 ForeverMaterial foreverMaterial = JsonConvert.DeserializeObject<ForeverMaterial>(result);
                 ViewBag.total_count = foreverMaterial.total_count;
                 ViewBag.item_count = foreverMaterial.item_count;
-                ViewBag.nextoffset = offset * count + 1;
+                int totalPage = ((foreverMaterial.total_count+count-1)/ count) ;
+                bool prepage = false;
+                bool nextpage = false;
+                if (type == "image")
+                {
+                    nextpage = true;
+                }
+                if (page > 1)
+                {
+                    prepage = true;
+                }
+                if (totalPage > page)
+                {
+                    nextpage = true;
+
+                }
+                ViewBag.prepage = prepage;
+                ViewBag.nextpage = nextpage;
+                ViewBag.nextoffset = page * count;
+                ViewBag.preoffset = (page-2) * count;
                 ViewBag.count=count;
                 ViewBag.type=type;
+                ViewBag.page = page;
+                ViewBag.totalPage = totalPage;
                 ViewData["MaterialItems"] = foreverMaterial.item;
             }
 

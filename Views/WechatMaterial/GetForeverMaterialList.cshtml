@@ -19,26 +19,19 @@
                 <a href="@Url.Action("GetForeverMaterialList", "WechatMaterial", new { type = "image", offset = 0, count = 1})" class="btn btn-info">图片总数量：@ViewBag.image_count</a>
          <a href="@Url.Action("GetForeverMaterialList", "WechatMaterial", new { type = "voice",offset=0,count=20 })" class="btn btn-info">语音总数量：@ViewBag.voice_count</a> 
             <a href="@Url.Action("GetForeverMaterialList", "WechatMaterial", new { type = "video", offset = 0, count = 20 })" class="btn btn-info">视频总数量：@ViewBag.video_count</a> 
-                <a href="@Url.Action("GetForeverMaterialList", "WechatMaterial", new { type = "news", offset = 0, count = 20 })" class="btn btn-primary">图文消息总数量：@ViewBag.news_count</a> 
+                <a href="@Url.Action("GetForeverMaterialList", "WechatMaterial", new { type = "news", offset = 0, count = 1 })" class="btn btn-info">图文消息总数量：@ViewBag.news_count</a> 
             </h4>
             <h5>
-                消息总数：@ViewBag.total_count   本次提取总数：@ViewBag.item_count
-                @if (ViewBag.nextoffset > ViewBag.count)
-                {  <a href="@Url.Action("GetForeverMaterialList", "WechatMaterial", new { type = ViewBag.type, offset = ViewBag.nextoffset-2, count = ViewBag.count })" class="btn btn-warning btn-xs">上一页</a>
-                }
-                
-                @if (ViewBag.nextoffset < ViewBag.total_count)
-                {  <a href="@Url.Action("GetForeverMaterialList", "WechatMaterial", new { type = ViewBag.type, offset = ViewBag.nextoffset, count = ViewBag.count })" class="btn btn-warning btn-xs">下一页</a>
-                 }
+              
                 
                 
             </h5>
 
                 @if (ViewBag.total_count == 0)
                 {
-                    <h6 class="text-red">
+                    <h5 class="text-red">
                         @Html.Raw(ViewBag.type + "类型的数量为0")
-                    </h6>
+                    </h5>
 
 
                 }
@@ -46,27 +39,42 @@
                 {
                     if (ViewBag.type == "news")
                     {
-                        <h6 class="text-red">
-                            @Html.Raw("图文消息请在微信后台自行查看即可。")
-                        </h6>
+                       
                     
                     <table class="table table-bordered">
 
                     <tr>
-                        <th>media_id</th>
-                        <th>name</th>
-                        <th>update</th>
-                        <th>url</th>
+                        <th colspan="2">media_id</th>
+                      
+                        <th colspan="2">update_time</th>
+                      
                     </tr>
                     @foreach (var xitem in (IEnumerable<Wechat.ForeverNewsMaterialItem>)ViewData["NewsMaterialItems"])
                     {
-                        <tr>
-                            <td colspan="1">@xitem.media_id</td> 
-                            <td colspan="2">@xitem.content.ToString()</td> 
-                            <td colspan="1">@xitem.update_time</td> 
-                        </tr>
-                       
                         
+                      <tr>
+                            <td colspan="2">@xitem.media_id</td> 
+                           
+                            <td colspan="2">@xitem.update_time</td> 
+                        </tr>   
+                          <tr>
+                        <th>标题</th>                      
+                        <th>地址</th>
+                        <th>缩略图</th>
+                        <th>来源url</th>        
+                    </tr>   
+                        
+                         foreach (var iitem in (IEnumerable<Wechat.news_item>)xitem.content.news_item)
+                    {
+                             
+                             <tr>
+                            <td colspan="1">@iitem.title</td> 
+                            <td colspan="1">@iitem.url</td> 
+                            <td colspan="1">@iitem.thumb_media_id</td> 
+                            <td colspan="1">@iitem.content_source_url</td> 
+                        </tr>   
+                       
+                   }
 
                     }
                 </table> 
@@ -85,6 +93,7 @@
                     </tr>
                     @foreach (var item in (IEnumerable<Wechat.ForeverMaterialItem>)ViewData["MaterialItems"])
                     {
+                        
                         <tr>
                             <td>@item.media_id</td>
                             <td>@item.name</td>
@@ -95,14 +104,40 @@
                     }
                 </table> 
                 }
-             
-                    
-                    
-                    
+                
                 }
 
               
 
+        </div>
+    
+        <div class="box-footer">
+            <h5 class="pull-right">
+              
+               @if (ViewBag.type == "image")
+               { <strong style="color:#ff0000">
+                    微信的图片素材获取总数有问题，用下一页一直存在来解决。
+                </strong> }
+
+                 <strong>
+                    消息总数：@ViewBag.total_count   本次提取总数：@ViewBag.item_count  当前页数：@ViewBag.page 总页数：@ViewBag.totalPage
+                </strong>
+ 
+               
+                
+                @if (ViewBag.prepage)
+                {  <a href="@Url.Action("GetForeverMaterialList", "WechatMaterial", new { page = (ViewBag.page - 1), type = ViewBag.type, offset = ViewBag.preoffset, count = ViewBag.count })" class="btn btn-info">
+                    <i class="fa  fa-angle-double-left"></i>  上一页
+                </a>
+                }
+
+                @if (ViewBag.nextpage)
+                {
+                    <a href="@Url.Action("GetForeverMaterialList", "WechatMaterial", new { page = (ViewBag.page+1), type = ViewBag.type, offset = ViewBag.nextoffset, count = ViewBag.count })" class="btn btn-info"><i class="fa fa-angle-double-right"></i> 下一页</a>
+
+                }
+            </h5>
+           
         </div>
     </div>
 </section>
